@@ -25,11 +25,11 @@
 | ------------------ | ---------- | ----------------------------- |
 | name               | string     | null: false                   |
 | description        | text       | null: false                   |
-| category_id        | string     | null: false                   |
-| condition_id       | string     | null: false                   |
-| shipping_charge_id | string     | null: false                   |
-| state_province_id  | string     | null: false                   |
-| days_to_ship_id    | string     | null: false                   |
+| category_id        | integer    | null: false                   |
+| condition_id       | integer    | null: false                   |
+| shipping_charge_id | integer    | null: false                   |
+| state_province_id  | integer    | null: false                   |
+| days_to_ship_id    | integer    | null: false                   |
 | price              | integer    | null: false                   |
 | user               | references | null: false ,foreign_key: true|
 
@@ -55,12 +55,12 @@
 
 | Column            | Type       | Options                        |
 | ----------------- | ---------- | ------------------------------ |
-| zip_code          | integer    | null: false                    |
-| state_province_id | string     | null: false                    |
+| zip_code          | string     | null: false                    |
+| state_province_id | integer    | null: false                    |
 | city_town_village | string     | null: false                    |
 | street_address    | string     | null: false                    |
 | building_name     | string     |                                |
-| telephone         | integer    | null: false                    |
+| telephone         | string     | null: false                    |
 | order             | references | null: false, foreign_key: true |
 
 ### Association
