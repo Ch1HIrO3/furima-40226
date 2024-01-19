@@ -134,8 +134,4 @@ RSpec.describe User, type: :model do
       end
     end
   end
-  describe 'トップページ' do
-    context '新規登録できない場合' do
-    end
-  end
 end
