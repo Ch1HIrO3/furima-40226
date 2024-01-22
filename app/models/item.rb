@@ -5,6 +5,7 @@ class Item < ApplicationRecord
   belongs_to :shipping_charge
   belongs_to :state_province
   belongs_to :days_to_ship
+  has_one_attached :image
 
   validates :name, :description, :price, :user_id, presence: true
   validates :category_id, :condition_id, :shipping_charge_id, :state_province_id, :days_to_ship_id, numericality: { other_than: 1 }
