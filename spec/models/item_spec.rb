@@ -28,30 +28,66 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Description can't be blank")
       end
-      it 'カテゴリーの情報が空では登録できない。' do
-        @item.category_id = ""
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Category is not a number")
+      context 'カテゴリーの情報が空または1では登録できない' do
+        it 'カテゴリーの情報が空では登録できない。' do
+          @item.category_id = ""
+          @item.valid?
+          expect(@item.errors.full_messages).to include("Category is not a number")
+        end
+        it 'カテゴリーの情報が1(---)では登録できない。' do
+          @item.category_id = "1"
+          @item.valid?
+          expect(@item.errors.full_messages).to include("Category must be other than 1")
+        end
       end
-      it '商品の状態の情報が空では登録できない。' do
-        @item.condition_id = ""
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Condition is not a number")
+      # validates :category_id, :condition_id, :shipping_charge_id, :state_province_id, :days_to_ship_id, numericality: { other_than: 1 }
+      context '商品の状態の情報が空または1では登録できない' do
+        it '商品の状態の情報が空では登録できない。' do
+          @item.condition_id = ""
+          @item.valid?
+          expect(@item.errors.full_messages).to include("Condition is not a number")
+        end
+        it '商品の状態の情報が1(---)では登録できない。' do
+          @item.condition_id = "1"
+          @item.valid?
+          expect(@item.errors.full_messages).to include("Condition must be other than 1")
+        end
       end
-      it '配送料の負担の情報が空では登録できない。' do
-        @item.shipping_charge_id = ""
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping charge is not a number")
+      context '配送料の負担の情報が空または1では登録できない' do
+        it '配送料の負担の情報が空では登録できない。' do
+          @item.shipping_charge_id = ""
+          @item.valid?
+          expect(@item.errors.full_messages).to include("Shipping charge is not a number")
+        end
+        it '配送料の負担の情報が1(---)では登録できない。' do
+          @item.shipping_charge_id = "1"
+          @item.valid?
+          expect(@item.errors.full_messages).to include("Shipping charge must be other than 1")
+        end
       end
-      it '発送元の地域の情報が空では登録できない。' do
-        @item.state_province_id = ""
-        @item.valid?
-        expect(@item.errors.full_messages).to include("State province is not a number")
+      context '発送元の地域の情報が空または1では登録できない' do
+        it '発送元の地域の情報が空では登録できない。' do
+          @item.state_province_id = ""
+          @item.valid?
+          expect(@item.errors.full_messages).to include("State province is not a number")
+        end
+        it '発送元の地域の情報が1(---)では登録できない。' do
+          @item.state_province_id = "1"
+          @item.valid?
+          expect(@item.errors.full_messages).to include("State province must be other than 1")
+        end
       end
-      it '発送までの日数の情報が空では登録できない。' do
-        @item.days_to_ship_id = ""
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Days to ship is not a number")
+      context '発送までの日数の情報が空または1では登録できない' do
+        it '発送までの日数の情報が空では登録できない。' do
+          @item.days_to_ship_id = ""
+          @item.valid?
+          expect(@item.errors.full_messages).to include("Days to ship is not a number")
+        end
+        it '発送までの日数の情報が1(---)では登録できない。' do
+          @item.days_to_ship_id = "1"
+          @item.valid?
+          expect(@item.errors.full_messages).to include("Days to ship must be other than 1")
+        end
       end
       it '価格の情報が空では登録できない。' do
         @item.price = ""
@@ -70,13 +106,18 @@ RSpec.describe Item, type: :model do
           expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
         end
       end
-        it '価格は半角数値でなければ保存できない。' do
-          @full_pitch_array.each do|price|
-            @item.price = price
-            @item.valid?
-            expect(@item.errors.full_messages).to include "Price is not a number"
-          end
+      it '価格は半角数値でなければ保存できない。' do
+        @full_pitch_array.each do|price|
+          @item.price = price
+          @item.valid?
+          expect(@item.errors.full_messages).to include "Price is not a number"
         end
+      end
+      it 'userが紐付いていない場合は登録できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("User must exist")
+      end
     end
   end
 end
