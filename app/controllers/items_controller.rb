@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]
+  before_action :set_item, only: [:show]
 
   def index
     @items = Item.all.order("created_at DESC")
@@ -16,6 +17,14 @@ class ItemsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+  end
+  
+  def show
+  end
+  
+  
+  def set_item
+    @item = Item.find(params[:id])
   end
 
   private
