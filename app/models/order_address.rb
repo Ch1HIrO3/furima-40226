@@ -5,8 +5,8 @@ class OrderAddress
   with_options presence: true do
     validates :state_province_id, :city_town_village, :street_address, :user_id, :item_id
     validates :state_province_id,numericality: { other_than: 1 }
-    validates :zip_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
-    validates :telephone, numericality: {with: /\A[0-9]{10}\z/, message: "Telephone "}
+    validates :zip_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/}
+    validates :telephone, numericality: {with: /\A[0-9]{10}\z/}
   end
   def save
     order = Order.create(user_id: user_id, item_id:item_id)
