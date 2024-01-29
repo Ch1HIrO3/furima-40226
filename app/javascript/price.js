@@ -1,4 +1,4 @@
-window.addEventListener('load', function(){
+function price(){
   const itemPrice = document.getElementById("item-price")
   itemPrice.addEventListener("keyup",()=>{
     
@@ -10,5 +10,7 @@ window.addEventListener('load', function(){
     const Profit  = document.getElementById("profit");
     Profit.innerHTML = `${grace}`;
   });
-});
+};
 
+window.addEventListener("turbo:load", price);
+window.addEventListener("turbo:render", price);
