@@ -1,9 +1,13 @@
 class OrdersController < ApplicationController
   before_action :set_item,only:[:index,:create]
+  before_action :authenticate_user!
 
   def index
     @order_address = OrderAddress.new
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+    if user_can_not_purchase?
+      redirect_to root_path
+    end
   end
   
   def new
@@ -49,5 +53,9 @@ class OrdersController < ApplicationController
   
   def set_item
     @item = Item.find(params[:item_id])
+  end
+
+  def user_can_not_purchase?
+    @item.user == current_user || @item.order != nil
   end
 end
