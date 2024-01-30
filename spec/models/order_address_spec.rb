@@ -9,7 +9,7 @@ RSpec.describe OrderAddress, type: :model do
 
   describe '商品の購入' do
     context '購入できる場合' do
-      it 'zip_code,state_province_id,city_town_village,street_address,telephone,user_id,item_idが存在すれば登録できる' do
+      it 'zip_code,state_province_id,city_town_village,street_address,telephone,user_id,item_id, :tokenが存在すれば登録できる' do
         expect(@order_address).to be_valid
       end
     end
@@ -63,6 +63,11 @@ RSpec.describe OrderAddress, type: :model do
           @order_address.telephone = Faker::Number.leading_zero_number(digits: 12)
           @order_address.valid?
           expect(@order_address.errors.full_messages).to include("Telephone is too long (maximum is 11 characters)")
+        end
+        it 'tokenは空では保存できない' do
+          @order_address.token = nil
+          @order_address.valid?
+          expect(@order_address.errors.full_messages).to include("Token can't be blank")
         end
       end
     end

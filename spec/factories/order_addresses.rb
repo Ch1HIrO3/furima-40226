@@ -7,5 +7,6 @@ FactoryBot.define do
     city_town_village{ Gimei.address.city.kanji }
     street_address{ Gimei.address.town.kanji }
     telephone{ Faker::Number.number(digits: 10) }
+    token {"tok_abcdefghijk00000000000000000"}
   end
 end
