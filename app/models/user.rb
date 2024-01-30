@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :items, dependent: :destroy
-  # has_many :orders, dependent: :destroy
+  has_many :orders, dependent: :destroy
 
   validates :nickname, presence: true
   validates :password, format: {with: /\A(?=.*[a-z])(?=.*\d)[a-z\d]+\z/i }
